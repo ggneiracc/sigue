@@ -26,7 +26,7 @@
         </div>
     @endif
 
-    <div class="btn btn-warning d-grid display-3">Actualizar datos</div>
+    <div class="btn btn-warning d-grid fs-5 mb-2 bt-2">Actualizar datos</div>
 
     <form action="{{ route('Estudiante.xUpdate', $xActAlumnos->id)}}" method="post" class="d-grid gap-2">
         @method('PUT')

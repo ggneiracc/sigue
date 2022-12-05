@@ -87,7 +87,7 @@
                 </td>
                 <td>
                     
-                    <form action="{{ route('Estudiante.xEliminar', $item->id) }}" onsubmit="return validar();" method="post" class="d-inline">
+                    <form action="{{ route('Estudiante.xEliminar', $item->id) }}" method="post" class="d-inline">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="btn btn-danger btn-sm">
@@ -107,18 +107,6 @@
 
     {{ $xAlumnos->links() }}
    
-@endsection
-
-@section('js')
-    <script type="text/javascript">
-        function validar(){
-            if(window.confirm("Esta seguro que quiere eliminar?")){
-                return true;
-            }else{
-                return false;
-            }
-        }
-    </script>
 @endsection
 
  

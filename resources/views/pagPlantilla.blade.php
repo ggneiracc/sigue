@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>App laravel - Seguimiento</title>
   </head>
   <body style="margin:0">
      
@@ -26,9 +26,10 @@
         @yield('seccion')
     </div>
 
-    <div class="container bg-dark text-white text-center">
+    <div class="container bg-secondary text-white text-center d-grid py-2 my-4">
         Pie de página
     </div>
+    
 
     <!-- Optional JavaScript; choose one of the two! -->
 

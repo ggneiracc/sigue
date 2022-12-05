@@ -8,55 +8,15 @@ use App\Models\Estudiante1;
 
 class PagesController extends Controller
 {
+    //////////////////// Portada //////////////////////////////////
     public function fnIndex(){
         return view('welcome');
     }
 
-    public function fnEstDetalle($id){
-
-        $xDetAlumnos = Estudiante1::findOrFail($id);
-        return view('Estudiante.pagDetalle', compact('xDetAlumnos'));
-    }
-
-    public function fnEstActualizar($id){
-
-        $xActAlumnos = Estudiante1::findOrFail($id);
-        return view('Estudiante.pagActualizar', compact('xActAlumnos'));
-    }
-    
-    public function fnEliminar(Request $request, $id){
-
-        $deleteAlumno = Estudiante1::findOrFail($id);
-        $deleteAlumno->delete();
-
-        return back()->with('msj','Se elimnino con éxito...');              //Regresar
-    }
-
-
-    public function fnUpdate(Request $request, $id){
-
-        $xUpdateAlumnos = Estudiante1::findOrFail($id);
-
-        //return $request->all();
-
-        $xUpdateAlumnos->codEst = $request->codEst;
-        $xUpdateAlumnos->nomEst = $request->nomEst;
-        $xUpdateAlumnos->apeEst = $request->apeEst;
-        $xUpdateAlumnos->fnaEst = $request->fnaEst;
-        $xUpdateAlumnos->turMat = $request->turMat;
-        $xUpdateAlumnos->semMat = $request->semMat;
-        $xUpdateAlumnos->estMat = $request->estMat;
-        
-        $xUpdateAlumnos->save();
-        
-        //return view('pagLista');  //Pasar a página lista
-        return back()->with('msj','Se actualizo con éxito...');              //Regresar
-        //created_at  updated_at
-    }
-
-
-
+    //////////////////// CREATE ///////////////////////////////////
     public function fnRegistrar(Request $request){
+
+        //return $request->all();         //Prueba de "token" y datos recibidos
 
         $request ->validate([
             'codEst' => 'required',
@@ -68,8 +28,6 @@ class PagesController extends Controller
             'estMat' => 'required'
         ]);
 
-
-        //return $request->all();
         $nuevoEstudiante = new Estudiante1;
         $nuevoEstudiante->codEst = $request->codEst;
         $nuevoEstudiante->nomEst = $request->nomEst;
@@ -81,17 +39,63 @@ class PagesController extends Controller
         
         $nuevoEstudiante->save();
         
-        //return view('pagLista');  //Pasar a página lista
-        return back()->with('msj','Se registro con éxito...');              //Regresar
-        //created_at  updated_at
+        //$xAlumnos = Estudiante1::all();                      //Datos de BD
+        //return view('pagLista', compact('xAlumnos'));        //Pasar a pagLista
+        return back()->with('msj','Se registro con éxito...'); //Regresar con msj
     }
 
+    //////////////////// READ /////////////////////////////////////
     public function fnLista(){
 
+        //$xAlumnos = Estudiante1::all();              //Todos los datos
         $xAlumnos = Estudiante1::paginate(4);
         return view('dashboard', compact('xAlumnos'));
     }
 
+    public function fnEstDetalle($id){
+
+        $xDetAlumnos = Estudiante1::findOrFail($id);
+        return view('Estudiante.pagDetalle', compact('xDetAlumnos'));
+    }
+
+    //////////////////// UPDATE ///////////////////////////////////
+    public function fnEstActualizar($id){                   //Paso 1
+
+        $xActAlumnos = Estudiante1::findOrFail($id);
+        return view('Estudiante.pagActualizar', compact('xActAlumnos'));
+    }
+
+    public function fnUpdate(Request $request, $id){        //Paso 2
+
+        //return $request->all();         //Prueba de "token" y datos recibidos
+
+        $xUpdateAlumnos = Estudiante1::findOrFail($id);
+
+        $xUpdateAlumnos->codEst = $request->codEst;
+        $xUpdateAlumnos->nomEst = $request->nomEst;
+        $xUpdateAlumnos->apeEst = $request->apeEst;
+        $xUpdateAlumnos->fnaEst = $request->fnaEst;
+        $xUpdateAlumnos->turMat = $request->turMat;
+        $xUpdateAlumnos->semMat = $request->semMat;
+        $xUpdateAlumnos->estMat = $request->estMat;
+        
+        $xUpdateAlumnos->save();
+        
+        //$xAlumnos = Estudiante1::all();                        //Datos de BD
+        //return view('pagLista', compact('xAlumnos'));          //Pasar a pagLista
+        return back()->with('msj','Se actualizó con éxito...');  //Regresar con msj
+    }
+
+    //////////////////// DELETE /////////////////////////////////// 
+    public function fnEliminar(Request $request, $id){
+
+        $deleteAlumno = Estudiante1::findOrFail($id);
+        $deleteAlumno->delete();
+
+        return back()->with('msj','Se eliminó con éxito...');  //Regresar
+    }
+
+    //////////////////// EJEMPLO. RUTA CON VALIDACIÓN /////////////
     public function fnGaleria($numero=0){
         $valor = $numero;
         $otro  = 25;
